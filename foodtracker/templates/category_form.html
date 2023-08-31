@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Food Tracker | Add Food Item{% endblock %}
+
+{% block body %}
+<div class='py-4 mt-auto'>
+    <div class='container px-4'>
+       
+            <div class='d-flex justify-content-center'>
+                <h3>Add Category Item</h3>
+            </div>
+            <div class='d-flex justify-content-center'>
+                <p>Enter the details of a new food item</p>
+            </div>
+            
+                <div class='row'>
+                    <div class='col-lg-6 offset-lg-3'>
+                        <div class='card bg-secondary mb-3'>
+                            <div class='card-body'>
+    
+                                <div class='form-group'>
+                                    <form action="{% url 'add_cat' %}" method='POST' >
+                                        {% csrf_token %}
+                                        <div class='form-group'>
+                                            {{ form.as_p }}
+                                            <div class="form-btn">
+                                                <button type='submit' class='btn btn-primary'>Save</button>
+                                                <a href="{% url 'index' %}" class='btn btn-outline-dark'>Cancel</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+{% endblock %}

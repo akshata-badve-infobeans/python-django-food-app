@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Food Tracker | Food Delete
+{% endblock %}
+
+{% block body %}
+<div class='py-4 mt-auto'>
+    <div class='container-fluid px-4'>
+        <div class='d-flex justify-content-center'>
+            <h3>Delete Food Item</h3>
+        </div>
+        <div class='d-flex justify-content-center'>
+            <p>Confirm your choice.</p>
+        </div>
+        <div class='row'>
+            <div class='col-lg-6 offset-lg-3'>
+                <div class='card bg-secondary mb-3'>
+                    <div class='card-body'>
+
+                        <div class='form-group'>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class='form-group'>
+                                    <p>Are you sure you want to delete "{{ object }}"?</p>
+                                    <input class="btn btn-danger" type="submit" value="Confirm" />
+                                    <a href="{% url 'index' %}" class='btn btn-outline-dark'>Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

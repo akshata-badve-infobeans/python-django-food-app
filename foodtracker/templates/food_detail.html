@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Food Tracker | {{ food_detail.food_name }}{% endblock %}
+
+{% block body %}
+<div class='py-4 mt-auto'>
+    <div class='container-fluid px-4'>
+        <a href="{% url 'index' %}" class='btn btn-outline-primary my-3'>Go Back</a>
+
+        <h3 class="page-title">{{ food_detail.food_name }}</h3>
+        <h5>Category: {{ food_detail.category }}</h5>
+
+        <div class='row justify-content-center '>
+            <div class='col-6'>
+                <!-- Food image -->
+                <a href='#'>
+                    {% if food_detail.food_img %}
+                    <img 
+                        src="{{ food_detail.food_img.url }}" 
+                        class='img-fluid'
+                        alt='food image'
+                    >
+                    {% else %}
+                    <img 
+                        src="{% static '/images/no_image.png' %}" 
+                        class='img-fluid'
+                        alt='food image'
+                    >
+                    {% endif %}
+                </a>
+               
+                <div class="food_info">
+                    <p>{{ food_detail.info }}<p>
+                </div>
+                <p><a class="btn btn-primary" href="{% url 'update' pk=food_detail.pk %}">Update </a>
+                <a class="btn btn-danger" href="{% url 'delete' pk=food_detail.pk %}">Delete </a></p> 
+                
+            </div>
+            <div class='col-6'>
+                <div class='card text-white bg-info mb-3'>
+                    <div class='card-header'>
+                        <div class='d-flex w-100 justify-content-between'>
+                            <h5 class='card-title mb-1'>
+                                Calories per {{ food_detail.quantity|floatformat:0 }} grams:
+                            </h5>
+                            <p><strong>{{ food_detail.calories }}</strong></p>
+
+                            <input type='hidden' id='calories_details' name='calories_details' value='{{ food_detail.calories }}'>
+                            <input type='hidden' id='fat_details' name='calories_details' value='{{ food_detail.fat }}'>
+                            <input type='hidden' id='carbohydrates_details' name='calories_details' value='{{ food_detail.carbohydrates }}'>
+                            <input type='hidden' id='protein_details' name='calories_details' value='{{ food_detail.protein }}'>
+                        
+                        </div>
+                    </div>
+                    <div class='card-body'>
+
+                        <div class='d-flex w-100 justify-content-between'>
+                            <h5 class='card-title'>
+                                Macronutrients (g) per {{ food_detail.quantity|floatformat:0 }} grams:
+                            </h5>
+                        </div>
+
+                        <div class='d-flex w-100 justify-content-between'>
+                            <p class='mb-1'>Fat:</p>
+                            <p><strong>{{ food_detail.fat }}</strong></p>
+                        </div>
+
+                        <div class='d-flex w-100 justify-content-between'>
+                            <p class='mb-1'>Carbs:</p>
+                            <p><strong>{{ food_detail.carbohydrates }}</strong></p>
+                        </div>
+
+                        <div class='d-flex w-100 justify-content-between'>
+                            <p class='mb-1'>Protein:</p>
+                            <p><strong>{{ food_detail.protein }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='card bg-secondary mb-3'>
+                    <div class='card-header'>
+                        <h4>Macronutrients breakdown</h4>
+                    </div>
+                    <div class='card-body justify-content-center'>
+                        <div class='chart-bar'>
+                            <canvas id='myBarChart'></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <!-- Page level plugins -->    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/food_detail.js' %}"></script>
+{% endblock %}
